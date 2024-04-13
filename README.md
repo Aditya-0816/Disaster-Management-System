@@ -1,1 +1,2 @@
 # Earthquake-Management-System
+The earthquake management system (EMS) seems like a smart tool that can help us better prepare for and respond to earthquakes. It uses technology to collect and organize important information such as where earthquakes occur, how strong they are, and the damage they cause. Using displays and simple maps, it helps people understand what to expect during an earthquake and how to stay safe. EMS helps us respond to earthquakes together and keep everyone as safe as possible by ensuring everyone gets the right information at the right time.
