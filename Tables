@@ -1,0 +1,25 @@
+1. Create Table Disaster_Table(
+   Disaster_id int primary key,
+   disaster_name varchar,
+   disaster_date date,
+   place_id int)
+2. Create Table Place_Table(
+   place_id int primary key,
+   place_name varchar)
+3. Create Table Save_Table(
+   save_id int primary key)
+4. Create Table People(
+   people_id int primary key,
+   people_name varchar,
+   people_no varchar,
+   save_id int,
+   victim_id int)
+5. Create Table Death(
+   death_no int primary key,
+   identified varchar)
+6. Create Table Victim(
+   victim_id int primary key,
+   victim varchar,
+   injured varchar,
+   affected varchar,
+   missing varchar)
