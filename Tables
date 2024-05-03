@@ -8,71 +8,91 @@ Use Database Disaster_Management_System;
 𝟏)𝐃𝐞𝐬𝐜𝐫𝐢𝐩𝐭𝐢𝐨𝐧 𝐓𝐚𝐛𝐥𝐞
 Create Table Description_Table(
    description_id int primary key,
-   description_name varchar,
-   disaster_id int);
+   description_name varchar(5000),
+   disaster_id int,
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟐)𝐃𝐢𝐬𝐚𝐬𝐭𝐞𝐫 𝐓𝐚𝐛𝐥𝐞
 Create Table Disaster_Table(
    Disaster_id int primary key,
-   disaster_name varchar,
+   disaster_name varchar(100),
    disaster_date date,
-   cause_of_disaster varchar,
+   cause_of_disaster varchar(2000),
    place_id int,
-   disaster_detail varchar,
-   time_of_disaster time,
+   time time,
+   disaster_details varchar(500),
    direct_effect_id int,
    indirect_effect_id int,
-   description_id int);
+   discription_id int,
+   foreign key(description_id) references Description_Table(description_id),
+   foreign key(place_id_id) references Place_Table(place_id),
+   foreign key(direct_effect_id) references Direct_Effects_Table(direct_effect_id),
+   foreign key(indirect_effect_id) references Indirect_Effects_Table(indirect_effect_id),
+   );
 
 𝟑)𝐏𝐥𝐚𝐜𝐞 𝐓𝐚𝐛𝐥𝐞
 Create Table Place_Table(
    place_id int primary key,
-   place_name varchar,
-   country varchar,
-   city varchar,
-   state varchar);
+   place_name varchar(100),
+   country varchar(50),
+   city varchar(100),
+   state varchar(100));
 
 𝟒)𝐏𝐞𝐨𝐩𝐥𝐞 𝐓𝐚𝐛𝐥𝐞
-Create Table People(
+   Create Table People(
    people_id int primary key,
-   people_name varchar,
-   people_no varchar,
+   people_name varchar(200),
+   people_no varchar(10),
    save_id int,
    victim_id int,
-   family_id int);
+   family_id int
+   foreign key(save_id) references Save_Table(save_id),
+   foreign key(victim_id) references Victim_Table(victim_id),
+   foreign key(family_id) references Family_Table(family_id)
+   );
 
 𝟓)𝐒𝐚𝐯𝐞 𝐓𝐚𝐛𝐥𝐞
 Create Table Save_Table(
    save_id int primary key,
    save_date date
    save_time time,
-   save_location varchar,
-   details varchar,
+   save_location varchar(200),
+   details varchar(200),
    victim_id int,
    disaster_id int,
-   rescued varchar);
+   rescued varchar(10),
+   foreign key(victim_id) references Victim_Table(victim_id),
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟔)𝐃𝐞𝐚𝐭𝐡 𝐓𝐚𝐛𝐥𝐞
 Create Table Death(
    death_no int primary key,
-   identified varchar,
-   cause_of_death varchar,
+   identified varchar(10),
+   cause_of_death varchar(100),
    date_of_death date,
    time_of_death time,
    disaster_id int,
-   victim_id int);
+   victim_id int,
+   foreign key(victim_id) references Victim_Table(victim_id),
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟕)𝐕𝐢𝐜𝐭𝐢𝐦 𝐓𝐚𝐛𝐥𝐞
 Create Table Victim(
    victim_id int primary key,
-   victim_name varchar,
-   injured varchar,
-   affected varchar,
-   missing varchar,
-   gender varchar,
+   victim_name varchar(100),
+   injured varchar(10),
+   affected varchar(10),
+   missing varchar(10),
+   gender varchar(10),
    age int,
    disaster_id int,
-   family_id int);
+   family_id int,
+   foreign key(family_id) references Family_Table(family_id),
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟖)𝐅𝐚𝐦𝐢𝐥𝐲 𝐓𝐚𝐛𝐥𝐞
 Create Table Family_Table(
@@ -82,7 +102,9 @@ Create Table Family_Table(
    children int,
    compensation_id int,
    requirement varchar,
-   dead_family_members int);
+   dead_family_members int,
+   foreign key(compensation_id) references Compensation_Table(compensation_id)
+   );
 
 𝟗)𝐄𝐜𝐨𝐧𝐨𝐦𝐢𝐜 𝐃𝐚𝐦𝐚𝐠𝐞 𝐓𝐚𝐛𝐥𝐞
 Create Table Economic_Damage_Table(
@@ -90,28 +112,36 @@ Create Table Economic_Damage_Table(
    disaster_id int,
    property_damage_amt int,
    agriculture_damage_amt int,
-   technical_damage_amt int);
+   technical_damage_amt int,
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟏𝟎)𝐂𝐨𝐦𝐩𝐞𝐧𝐬𝐚𝐭𝐢𝐨𝐧 𝐓𝐚𝐛𝐥𝐞
 Create Table Compensation_Table(
    compensation_id int primary key,
-   compensation varchar,
+   compensation varchar(100),
    compensation_amount int,
    date_paid int,
-   victim_id int);
+   victim_id int,
+   foreign key(victim_id) references Victim_Table(victim_id)
+   );
 
 𝟏𝟏)𝐃𝐢𝐫𝐞𝐜𝐭 𝐄𝐟𝐟𝐞𝐜𝐭𝐬 𝐓𝐚𝐛𝐥𝐞
 Create Table Direct_Effects_Table(
    direct_effect_id int primary key,
    disaster_id int,
-   description varchar,
-   direct_impact_type varchar,
-   direct_severity varchar);
+   description varchar(1000),
+   direct_impact_type varchar(200),
+   direct_severity varchar(500),
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
 
 𝟏𝟐)𝐈𝐧𝐝𝐢𝐫𝐞𝐜𝐭 𝐄𝐟𝐟𝐞𝐜𝐭𝐬 𝐓𝐚𝐛𝐥𝐞
-Create Table Indirect_Effects(
+Create Table Indirect_Effects_Table(
    indirect_effect_id int primary key,
    disaster_id int,
    description varchar,
    indirect_impact_type varchar,
-   indirect_severity varchar);
+   indirect_severity varchar,
+   foreign key(disaster_id) references Disaster_Table(disaster_id)
+   );
